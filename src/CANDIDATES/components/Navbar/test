@@ -1,0 +1,157 @@
+<Box>
+      <AppBar position="sticky">
+      <Toolbar >
+
+          {/* <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2 }}
+            onClick={() => updateOpen(!dopen)}
+          >
+            <MenuIcon />
+          </IconButton> */}
+          {/* <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            HELLO {data.Full_name} WELCOME TO THE HRM
+          </Typography> */}
+          {/* <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search> */}
+      <Box sx={{backgroundColor:'red'  }}>
+           <Button color="inherit" onClick={handleVacanciesClick}>
+            Vacancies
+          </Button>
+          <Button color="inherit" onClick={handleProfileClick}>
+          Profile
+          </Button>
+          <Button color="inherit" onClick={handleHistoryClick}>
+         History
+          </Button>
+      </Box>
+        
+
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: "none", md: "flex" ,backgroundColor:'red' } }}>
+           
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
+      {logoutDialog}
+    </Box>
+
+
+    ///////////////////////////////
+
+
+    <Card
+    sx={{
+      margin: "0 auto",
+      backgroundColor: "#E1F5FE",
+      // backgroundColor: "#7FCEF0",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
+  >
+    <CardContent>
+      <Typography gutterBottom variant="h5">
+        Featured Jobs
+      </Typography>
+    </CardContent>
+    <Grid item xs={12} sm={4}>
+      <TextField
+        label="Search Job"
+        variant="outlined"
+        margin="normal"
+        value={filter}
+        size="small"
+        // onChange={(e) => setFilter(e.target.value)}
+        onChange={handleFilterChange}
+        InputProps={{
+          endAdornment: <SearchIcon style={{ color: "grey" }} />,
+        }}
+      />
+    </Grid>
+    <img
+      src={emp}
+      alt="icon"
+      style={{
+        width: "6%",
+        height: "auto",
+        marginRight: "1%",
+      }}
+    />
+  </Card>
+  <Card
+  sx={{
+    display: "flex",
+    flexDirection: "column", // Align items vertically
+    justifyContent: "center", // Center content horizontally
+    alignItems: "center", // Center content vertically
+    backgroundImage: `url(${cv})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    height: 450,
+  }}
+>
+  <Box sx={{ mt: "10%" }}>
+    <Typography gutterBottom variant="h5">
+      Find Your Dream Job
+    </Typography>
+
+    <TextField
+      sx={{ width: 500 }}
+      label="Search Job"
+      variant="outlined"
+      margin="normal"
+      value={filter}
+      size="small"
+      onChange={handleFilterChange}
+      InputProps={{
+        endAdornment: <SearchIcon style={{ color: "grey" }} />,
+        inputProps: {
+          style: { color: "white" },
+        },
+      }}
+    />
+    
+  </Box>
+</Card>

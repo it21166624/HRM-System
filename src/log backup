@@ -1,0 +1,336 @@
+import React, { useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { emailValidator } from "../../helpers/emailValidator";
+import { passwordValidator } from "../../helpers/passwordValidator";
+import "../Login/Login.css";
+import mainlogo from "../../../ASSETS/mainlogo.png";
+import { Divider, InputAdornment } from "@mui/material";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import emp from "../../../ASSETS/emp.jpg";
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      paddingBottom={"125px"}
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="">
+        Dockyard Total Solutions(Pvt)Ltd.
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const defaultTheme = createTheme();
+
+export default function Login() {
+  const [email, setemail] = useState({ value: "", error: "" });
+  const [password, setPassword] = useState({ value: "", error: "" });
+  const [googleAccessToken, setGoogleAccessToken] = useState("");
+  // const clientId =
+  //   "429522078419-jdcmfi1prd86a21tvnai8klth02buvb2.apps.googleusercontent.com";
+  // const [showloginButton, setShowloginButton] = useState(true);
+  // const [showlogoutButton, setShowlogoutButton] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+  };
+  const responseGoogle = (response) => {
+    if (response.accessToken) {
+      setGoogleAccessToken(response.accessToken);
+    }
+  };
+  const handleEmailChange = (event) => {
+    const text = event.target.value;
+    setemail({ value: text, error: "" });
+  };
+  const handlePasswordChange = (event) => {
+    const text = event.target.value;
+    setPassword({ value: text, error: "" });
+  };
+
+  // const onSignoutSuccess = () => {
+  //   alert("You have been logged out successfully");
+  //   console.clear();
+  //   setShowloginButton(true);
+  //   setShowlogoutButton(false);
+  // };
+  const onSignInPressed = () => {
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
+
+    if (emailError || passwordError) {
+      setemail({ ...email, error: emailError });
+      setPassword({ ...password, error: passwordError });
+      return;
+    }
+  };
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container
+        sx={{
+          display: "flex",
+          alignItems: "center", // Center vertically
+          justifyContent: "center", // Center horizontally
+          minHeight: "100vh", // Ensure full viewport height
+        }}
+      >
+        <Grid container component="main">
+          {/* <CssBaseline /> */}
+          <Grid
+            item
+            xs={false}
+            sm={4}
+            md={7}
+            sx={{
+              backgroundImage: `url(${emp})`,
+              backgroundRepeat: "no-repeat",
+              backgroundColor: (t) =>
+                t.palette.mode === "light"
+                  ? t.palette.grey[50]
+                  : t.palette.grey[900],
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={1}
+            square
+          >
+            <Box
+              sx={{
+                my: 4,
+                mx: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <img src={mainlogo} alt="My Logo" width={"45%"} />
+            </Box>
+            <Box
+              sx={{
+                my: 2,
+                mx: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <Typography
+                component="h1"
+                variant="h5"
+                sx={{ fontFamily: "segoe ui", fontWeight: "bold" }}
+              >
+                Log in to your Account
+              </Typography>
+
+              <Typography
+                component="h1"
+                sx={{
+                  my: 1,
+                  fontFamily: "segoe ui",
+                  color: "gray",
+                }}
+              >
+                Welcome back! Select method to log in:
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                fontWeight: "bold",
+              }}
+            >
+              <GoogleLogin
+                clientId="429522078419-e1svrak9pbdgtjoce55sb6dbllgdeg5m.apps.googleusercontent.com"
+                buttonText="Loging with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+                redirectUri="http://localhost:3000"
+                // Set the desired width here
+              />
+            </Box>
+
+            <Divider
+              sx={{
+                my: 3,
+                mx: 4,
+                display: "flex",
+                alignItems: "center",
+                color: "gray",
+              }}
+            >
+              or continue with email
+            </Divider>
+
+            <Box
+              sx={{
+                my: 3,
+                mx: 4,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {/* <LockOutlinedIcon /> */}
+
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                {/* <Grid container spacing={1}>
+                <Grid item xs={12}> */}
+
+                <TextField
+                  margin="normal"
+                  autoComplete="email"
+                  name="email"
+                  id="email"
+                  label="Email"
+                  placeholder="Email" // Display the email label as a placeholder inside the text box
+                  autoFocus
+                  fullWidth
+                  value={email.value}
+                  onChange={handleEmailChange}
+                  error={!!email.error}
+                  helperText={email.error}
+                  autoCapitalize="none"
+                  autocompletetype="email"
+                  inputMode="text"
+                  type="text"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <MailOutlineIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                {/* </Grid> */}
+                {/* <Grid item xs={12}> */}
+                <TextField
+                  margin="normal"
+                  autoComplete="password"
+                  name="password"
+                  id="password"
+                  label="Password"
+                  placeholder="Password"
+                  autoFocus
+                  fullWidth
+                  value={password.value}
+                  onChange={handlePasswordChange}
+                  error={!!password.error}
+                  helperText={password.error}
+                  autoCapitalize="none"
+                  autocompletetype="password"
+                  inputMode="text"
+                  type="password" // Change type to "password" to hide the entered characters
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockOutlinedIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                {/* </Grid> */}
+                {/* </Grid> */}
+                <Grid container alignItems="center" justifyContent="center">
+                  <Grid item xs>
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="Remember me"
+                    />
+                  </Grid>
+                  <Grid item xs sx={{ marginLeft: "25%" }}>
+                    <Link href="/forgot-password" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                </Grid>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  onClick={onSignInPressed}
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Log In
+                </Button>
+
+                <Grid container justifyContent="center">
+                  <Grid item>
+                    <Link href="/register" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid>
+
+                {/* <Grid container>
+              <div className="g-signin">
+                {showloginButton ? (
+                  <GoogleLogin
+                    clientId={clientId}
+                    buttonText="Sign In"
+                    onSuccess={onLoginSuccess}
+                    onFailure={onLoginFailure}
+                    cookiePolicy={"single_host_origin"}
+                    isSignedIn={true}
+                  />
+                ) : null}
+
+                {showlogoutButton ? (
+                  <GoogleLogout
+                    clientId={clientId}
+                    buttonText="Sign Out"
+                    onLogoutSuccess={onSignoutSuccess}
+                  />
+                ) : null}
+              </div>
+            </Grid> */}
+              </Box>
+            </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Grid>
+        </Grid>
+      </Container>
+    </ThemeProvider>
+  );
+}

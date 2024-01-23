@@ -1,0 +1,15 @@
+/* .g-signin {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  margin-top: 100px;
+  margin-left: -100px;
+} */
+.page {
+  background-image: url("../../../ASSETS/back.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+}
